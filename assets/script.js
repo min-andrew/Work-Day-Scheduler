@@ -1,12 +1,16 @@
 var currentDate = moment();
 var currentHour = moment().format("h");
+
+// displays the current date on the webpage 
 $("#currentDay").text(currentDate.format("dddd MMM Do, YYYY"));
 
 var container = $(".container")
 var hours = ["9", "10", "11", "12", "1", "2", "3", "4", "5"]
 var period = ["AM", "PM"]
 
+
 for (var i = 0; i < 9; i++) {
+    // creates the elements and sets ids and classes 
     var containerRow = document.createElement('section');
     containerRow.setAttribute("class", "row");
     var hourSection = document.createElement('p');
@@ -22,12 +26,15 @@ for (var i = 0; i < 9; i++) {
     containerRow.append(timeBlocks);
     containerRow.append(saveBtn);
     saveBtn.textContent = "Save me please"
+
+    // inputs the work-day hours and period 
     if (i < 3) {
         hourSection.textContent = hours[i] + period[0];
     } else {
         hourSection.textContent = hours[i] + period[1];
     };
 
+    // colors the current,past, and future hours of the workday
     if (currentHour === hours[i]) {
         timeBlocks.setAttribute("class", "textarea col-8 description present")
     } else if (hours.slice(i) == hours[i]) {
