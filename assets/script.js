@@ -16,7 +16,7 @@ for (var i = 0; i < 9; i++) {
     var hourSection = document.createElement('p');
     hourSection.setAttribute("class", "hour col-2");
     var timeBlocks = document.createElement('textarea');
-    timeBlocks.setAttribute("class", "textarea col-8 description");
+    timeBlocks.setAttribute("class", "textarea col-8 description past");
     timeBlocks.setAttribute("id", "textarea" + (i + 1));
     var saveBtn = document.createElement('button');
     saveBtn.setAttribute("class", "saveBtn col-2");
@@ -34,13 +34,15 @@ for (var i = 0; i < 9; i++) {
         hourSection.textContent = hours[i] + period[1];
     };
 
-    // colors the current,past, and future hours of the workday
+    // colors the current, past, and future hours of the workday
+    var futureIndex = (element) => element == currentHour;
+    var newIndex = hours.findIndex(futureIndex);
+    var forFuture = hours.slice(newIndex);
+
     if (currentHour === hours[i]) {
         timeBlocks.setAttribute("class", "textarea col-8 description present");
-    } else if (hours.slice(i) == hours[i]) {
+    } else if (forFuture.includes(hours[i])) {
         timeBlocks.setAttribute("class", "textarea col-8 description future");
-    } else {
-        timeBlocks.setAttribute("class", "textarea col-8 description past");
     };
 };
 
@@ -100,11 +102,6 @@ textarea6.textContent = localStorage.getItem("save6");
 textarea7.textContent = localStorage.getItem("save7");
 textarea8.textContent = localStorage.getItem("save8");
 textarea9.textContent = localStorage.getItem("save9");
-
-// makes sure the entire day becomes greyed out at end of the day 
-if (moment().format("hA") === "6PM") {
-    timeBlocks.setAttribute("class", "textarea col-8 description past");
-};
 
 // clears the localstorage every day 
 if (moment().format("hA") === "1AM") {
