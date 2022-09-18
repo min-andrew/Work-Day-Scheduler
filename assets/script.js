@@ -4,9 +4,9 @@ var currentHour = moment().format("h");
 // displays the current date on the webpage 
 $("#currentDay").text(currentDate.format("dddd MMM Do, YYYY"));
 
-var container = $(".container")
-var hours = ["9", "10", "11", "12", "1", "2", "3", "4", "5"]
-var period = ["AM", "PM"]
+var container = $(".container");
+var hours = ["9", "10", "11", "12", "1", "2", "3", "4", "5"];
+var period = ["AM", "PM"];
 
 
 for (var i = 0; i < 9; i++) {
@@ -25,7 +25,7 @@ for (var i = 0; i < 9; i++) {
     containerRow.append(hourSection);
     containerRow.append(timeBlocks);
     containerRow.append(saveBtn);
-    saveBtn.textContent = "Save me please"
+    saveBtn.textContent = "Save me please";
 
     // inputs the work-day hours and period 
     if (i < 3) {
@@ -36,12 +36,12 @@ for (var i = 0; i < 9; i++) {
 
     // colors the current,past, and future hours of the workday
     if (currentHour === hours[i]) {
-        timeBlocks.setAttribute("class", "textarea col-8 description present")
+        timeBlocks.setAttribute("class", "textarea col-8 description present");
     } else if (hours.slice(i) == hours[i]) {
-        timeBlocks.setAttribute("class", "textarea col-8 description future")
+        timeBlocks.setAttribute("class", "textarea col-8 description future");
     } else {
-        timeBlocks.setAttribute("class", "textarea col-8 description past")
-    }
+        timeBlocks.setAttribute("class", "textarea col-8 description past");
+    };
 };
 
 // variables for save buttons 
@@ -101,7 +101,12 @@ textarea7.textContent = localStorage.getItem("save7");
 textarea8.textContent = localStorage.getItem("save8");
 textarea9.textContent = localStorage.getItem("save9");
 
+// makes sure the entire day becomes greyed out at end of the day 
+if (moment().format("hA") === "6PM") {
+    timeBlocks.setAttribute("class", "textarea col-8 description past");
+};
+
 // clears the localstorage every day 
-if (moment().format("hA") === "12AM") {
+if (moment().format("hA") === "1AM") {
     localStorage.clear();
 };
