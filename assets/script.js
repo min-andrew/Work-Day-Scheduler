@@ -1,11 +1,13 @@
 var currentDate = moment();
 var currentHour = moment().format("h");
+var currentTime = moment().format("hA");
 
 // displays the current date on the webpage 
 $("#currentDay").text(currentDate.format("dddd MMM Do, YYYY"));
 
 var container = $(".container");
 var hours = ["9", "10", "11", "12", "1", "2", "3", "4", "5"];
+var workHours = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"];
 var period = ["AM", "PM"];
 
 
@@ -39,10 +41,12 @@ for (var i = 0; i < 9; i++) {
     var newIndex = hours.findIndex(futureIndex);
     var forFuture = hours.slice(newIndex);
 
-    if (currentHour === hours[i]) {
-        timeBlocks.setAttribute("class", "textarea col-8 description present");
-    } else if (forFuture.includes(hours[i])) {
-        timeBlocks.setAttribute("class", "textarea col-8 description future");
+    if (workHours.includes(currentTime)) {
+        if (currentHour === hours[i]) {
+            timeBlocks.setAttribute("class", "textarea col-8 description present");
+        } else if (forFuture.includes(hours[i])) {
+            timeBlocks.setAttribute("class", "textarea col-8 description future");
+        };
     };
 };
 
@@ -104,6 +108,6 @@ textarea8.textContent = localStorage.getItem("save8");
 textarea9.textContent = localStorage.getItem("save9");
 
 // clears the localstorage every day 
-if (moment().format("hA") === "1AM") {
+if (currentTime === "1AM") {
     localStorage.clear();
 };
